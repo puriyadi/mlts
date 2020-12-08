@@ -25,5 +25,9 @@ Route::group([
     Route::post('login', 'UserController@login');
     Route::post('logout', 'UserController@logout');
     //Route::post('refresh', 'UserController@refresh');
-    Route::get('userprofile', 'UserController@getAuthenticatedUser');    
+    Route::get('userprofile', 'UserController@getAuthenticatedUser');
+
+    //--------------------------- JOB --------------------------------
+    Route::get('receivejob','API\JobController@receivejob');
+    
 }); 
