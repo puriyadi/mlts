@@ -13,6 +13,8 @@ use App\Trc_mst_drivers;
 use App\Trc_mst_vehicles;
 use App\Trc_trn_schedule_hdrs;
 use App\Trc_trn_schedule_dtls;
+use App\Trc_trn_order_status;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -89,8 +91,19 @@ class ScheduleController extends Controller
                 $data->drv_id = $request->drv_id;
                 $data->vhc_id = $request->vhc_id;
                 $data->amount = $request->amount;
+                $data->status = "OP";
                 $data->create_by = auth()->user()->username;
                 $data->save();
+
+                $stt = new Trc_trn_order_status;
+                $stt->sched_id = $request->sched_id;
+                $stt->line = $max;
+                $stt->si_id = $request->si_id;
+                $stt->is_public = 'N';
+                $stt->jobtime = Carbon::now();
+                $stt->description = "Schedule Order sudah dibuat";
+                $stt->create_by = auth()->user()->username;
+                $stt->save();
 
                 if($data) {
                     return "Save"; 
@@ -253,7 +266,7 @@ class ScheduleController extends Controller
             
                 foreach($datas as $p) {
                     $html .= '<tr>
-                        <td><input type="checkbox" name="assign[]" value='.$p->sched_id.'||'.$p->line.'></td>
+                        <td><input type="checkbox" name="assign[]" value='.$p->sched_id.'||'.$p->line.'||'.$p->si_id.'></td>
                         <td>'.$p->sched_id.'</td>
                         <td>'.$p->si_id.'</td>
                         <td>'.$p->buss_unit.'</td>
@@ -287,8 +300,19 @@ class ScheduleController extends Controller
                 $data = Trc_trn_schedule_dtls::where("sched_id",$val[0])->where("line",$val[1]) 
                 ->update([
                     'assign_driver' => 'Y',
+                    'status' => 'AS',
                     'update_by' => auth()->user()->username
                 ]);
+
+                $stt = new Trc_trn_order_status;
+                $stt->sched_id = $request->sched_id;
+                $stt->line = $max;
+                $stt->si_id = $val[2];
+                $stt->is_public = 'N';
+                $stt->jobtime = Carbon::now();
+                $stt->description = "Job Order Sudah Diassign ke Sopir utk dijalankan";
+                $stt->create_by = auth()->user()->username;
+                $stt->save();
 
                 if($data) {
                     $result = "True";

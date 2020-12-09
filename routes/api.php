@@ -30,5 +30,5 @@ Route::group([
     //--------------------------- JOB --------------------------------
     Route::get('receivejob','API\JobController@receivejob');
     Route::get('listorder','API\JobController@listorder');
-    
+    Route::post('btnreceivejob','API\JobController@btnreceivejob');
 }); 

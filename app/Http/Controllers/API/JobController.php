@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Trc_trn_schedule_hdrs;
 use App\Trc_trn_schedule_dtls;
 use DB;
+use Auth;
+use App\Trc_trn_order_status;
+use Carbon\Carbon;
+
 class JobController extends Controller
 {
     public function receivejob(Request $request) {
@@ -38,4 +42,29 @@ class JobController extends Controller
         ->limit('10')->get();
         return response()->json($data);
     }
+
+    public function btnreceivejob(Request $request) {
+        $data = Trc_trn_schedule_dtls::where('sched_id',$request->sched_id)->where('line', $request->line)
+        ->update([
+            'receive_assign' => 'Y',
+            'status' => 'RJ',
+            'update_by' => $request->username
+        ]);
+
+        if($data) {
+            $stt = new Trc_trn_order_status;
+            $stt->sched_id = $request->sched_id;
+            $stt->line = $request->line;
+            $stt->si_id = $request->si_id;
+            $stt->is_public = 'Y';
+            $stt->jobtime = Carbon::now();
+            $stt->description = "Job Siap Dijalankan Sopir";
+            $stt->create_by = $request->username;
+            $stt->save();
+        }
+        
+        return response()->json(['status' => 'OK']);
+    }
+
+
 }
