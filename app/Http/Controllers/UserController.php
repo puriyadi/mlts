@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
 use App\Apps_mst_branchs;
 use App\User_branchs;
+use DB;
 
 class UserController extends Controller
 {
@@ -25,8 +26,8 @@ class UserController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         $user = User::where("username",$request->username)->update(['api_token' => $token]);
-        
-        return response()->json(['status' => 'OK', 'data' => compact('token')]);
+        $id=DB::table('trc_mst_drivers')->select('*')->where('empl_id',$request->username)->get();
+        return response()->json(['status' => 'OK', 'data' => compact('token','$id'),'user'=>$id]);
     }
      
     public function register(Request $request)

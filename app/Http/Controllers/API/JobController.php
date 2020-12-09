@@ -32,4 +32,10 @@ class JobController extends Controller
 
         return response()->json(['status' => 'OK', 'data' => $data]);
     }
+    public function listorder(Request $request)
+    {
+        $data=Trc_trn_schedule_dtls::select('*')->where('drv_id',$request->drv_id)->offset($request->index)
+        ->limit('10')->get();
+        return response()->json($data);
+    }
 }
