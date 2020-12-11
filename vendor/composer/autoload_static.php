@@ -569,6 +569,7 @@ class ComposerStaticInita9345c27feaf5a90011a727469baff8d
         'App\\Trc_mst_vehicle_hist_docs' => __DIR__ . '/../..' . '/app/Trc_mst_vehicle_hist_docs.php',
         'App\\Trc_mst_vehicle_mut_branchs' => __DIR__ . '/../..' . '/app/Trc_mst_vehicle_mut_branchs.php',
         'App\\Trc_mst_vehicles' => __DIR__ . '/../..' . '/app/Trc_mst_vehicles.php',
+        'App\\Trc_trn_order_status' => __DIR__ . '/../..' . '/app/Trc_trn_order_status.php',
         'App\\Trc_trn_schedule_dtls' => __DIR__ . '/../..' . '/app/Trc_trn_schedule_dtls.php',
         'App\\Trc_trn_schedule_hdrs' => __DIR__ . '/../..' . '/app/Trc_trn_schedule_hdrs.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',

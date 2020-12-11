@@ -25,9 +25,11 @@ class UserController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
+
         $user = User::where("username",$request->username)->update(['api_token' => $token]);
-        $id=DB::table('trc_mst_drivers')->select('*')->where('empl_id',$request->username)->get();
-        return response()->json(['status' => 'OK', 'data' => compact('token','$id'),'user'=>$id]);
+        $id = DB::table('trc_mst_drivers')->select('*')->where('empl_id', $request->username)->get();
+
+        return response()->json(['status' => 'OK', 'data' => compact('token'), 'user' => $id]);
     }
      
     public function register(Request $request)

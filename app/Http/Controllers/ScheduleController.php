@@ -25,7 +25,7 @@ class ScheduleController extends Controller
     public function add() {
         $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
         $drivers = Trc_mst_drivers::select('drv_id', 'drv_name')->where('active','=','Y')->get();
-        $pehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get();
+        $vehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get();
         $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();
         //$customers = Ord_mst_customers::select('cust_id','cust_name')->where('active','=','Y')->get();
         return view('schedule.add',compact('branchs','drivers','vehicles','containers'));
@@ -130,7 +130,7 @@ class ScheduleController extends Controller
         $data = Trc_trn_schedule_hdrs::select('*')->where("sched_id", $id)->get();
         $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
         $drivers = Trc_mst_drivers::select('drv_id', 'drv_name')->where('active','=','Y')->get();
-        $pehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get();
+        $vehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get();
         $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();
         return view('schedule.edit',compact('data','branchs','drivers','vehicles','containers'));
     }

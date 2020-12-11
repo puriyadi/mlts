@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Trc_trn_schedule_hdrs;
 use App\Trc_trn_schedule_dtls;
+use App\Trc_trn_schedule_tracks;
 use DB;
 use Auth;
 use App\Trc_trn_order_status;
@@ -29,11 +30,12 @@ class JobController extends Controller
         d.cont_id, d.cont_no, d.padlock, d.seal_no, s.drv_name, v.vhc_plat_no 
         FROM trc_trn_schedule_dtls d, ord_mst_customers c, trc_mst_drivers s, trc_mst_vehicles v
         WHERE d.cust_id = c.cust_id and d.drv_id = s.drv_id and d.vhc_id = v.vhc_id
-        and s.empl_id = "'.$request->empl_id.'"
+        and s.empl_id = "'.$request->empl_id.'" 
         and d.assign_driver = "'.'Y'.'" AND IFNULL(d.receive_assign,"'.'N'.'") = "'.'N'.'" 
         AND EXISTS(select 1 from trc_trn_schedule_hdrs h where sched_id = d.sched_id and sched_date = "'.date("Y-m-d").'")
         ');
 
+        
         return response()->json(['status' => 'OK', 'data' => $data]);
     }
     public function listorder(Request $request)
@@ -61,6 +63,14 @@ class JobController extends Controller
             $stt->description = "Job Siap Dijalankan Sopir";
             $stt->create_by = $request->username;
             $stt->save();
+
+            $tracks = new Trc_trn_schedule_tracks;
+            $tracks->sched_id = $request->sched_id;
+            $tracks->line = $request->line;
+            $tracks->receivejob_time = Carbon::now();
+            //$tracks->receivejob_lat = "";
+            //$tracks->receivejob_long = "";
+            $tracks->save();
         }
         
         return response()->json(['status' => 'OK']);

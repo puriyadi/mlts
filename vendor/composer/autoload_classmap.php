@@ -49,6 +49,7 @@ return array(
     'App\\Trc_mst_vehicle_hist_docs' => $baseDir . '/app/Trc_mst_vehicle_hist_docs.php',
     'App\\Trc_mst_vehicle_mut_branchs' => $baseDir . '/app/Trc_mst_vehicle_mut_branchs.php',
     'App\\Trc_mst_vehicles' => $baseDir . '/app/Trc_mst_vehicles.php',
+    'App\\Trc_trn_order_status' => $baseDir . '/app/Trc_trn_order_status.php',
     'App\\Trc_trn_schedule_dtls' => $baseDir . '/app/Trc_trn_schedule_dtls.php',
     'App\\Trc_trn_schedule_hdrs' => $baseDir . '/app/Trc_trn_schedule_hdrs.php',
     'App\\User' => $baseDir . '/app/User.php',
