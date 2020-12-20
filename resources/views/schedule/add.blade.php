@@ -359,6 +359,7 @@
 @endsection
 
 @push('dttable')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy3i0kShooPcS-_H1pMML7Rvv21WP8xDU&libraries=places&callback=initMap" async defer></script>
 <script>
   'use strict'
   //Initialize Select2 Elements

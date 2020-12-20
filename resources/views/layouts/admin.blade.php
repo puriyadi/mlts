@@ -167,7 +167,6 @@
 <script type="text/javascript" src="{{ asset('js/sweetalert.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('js/validated.js')}}"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy3i0kShooPcS-_H1pMML7Rvv21WP8xDU&libraries=places&callback=initMap" async defer></script>
 
 @stack('dttable')
 

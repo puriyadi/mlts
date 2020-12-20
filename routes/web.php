@@ -101,6 +101,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('assign', 'ScheduleController@assign')->name('assign');
     Route::post('assign/list', 'ScheduleController@assigndriver');
     Route::post('assign/submit','ScheduleController@assignsubmit');
+    Route::get('changedriver','ScheduleController@changedriver')->name('changedriver');
+    Route::get('changedriverlist','ScheduleController@changedriverlist')->name('changedriverlist');
+    Route::get('changedriver/{id}/edit', 'ScheduleController@changedriveredit');
+    Route::post('changedriver','ScheduleController@changedriversubmit');
 
     //------------------------------- User -------------------------------
     Route::get('userbranch', 'AuthController@viewuserbranch')->name('userbranchs');

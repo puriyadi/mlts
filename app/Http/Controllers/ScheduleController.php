@@ -23,10 +23,25 @@ class ScheduleController extends Controller
     }
 
     public function add() {
-        $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
-        $drivers = Trc_mst_drivers::select('drv_id', 'drv_name')->where('active','=','Y')->get();
-        $vehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get();
-        $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();
+        if(session('usercabang') != "01") {
+            $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->where('branch_id',session('usercabang'))->get();
+            
+            $drivers = DB::table('trc_mst_drivers as d')
+            ->join('apps_mst_empl_branchs as e','d.empl_id','=','e.empl_id')
+            ->select('d.*')->where('e.branch_id','=',session('usercabang'))->where('d.active','=','Y')->get();
+            
+            $vehicles = DB::table('trc_mst_vehicles as d')
+            ->join('trc_mst_vehicle_branchs as e','d.vhc_id','=','e.vhc_id')
+            ->select('d.*')->where('e.branch_id','=',session('usercabang'))->where('d.active','=','Y')->get();
+
+            $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();
+    
+        } else {
+            $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
+            $drivers = Trc_mst_drivers::select('drv_id', 'drv_name')->where('active','=','Y')->get();
+            $vehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get();
+            $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();    
+        }
         //$customers = Ord_mst_customers::select('cust_id','cust_name')->where('active','=','Y')->get();
         return view('schedule.add',compact('branchs','drivers','vehicles','containers'));
     }
@@ -128,10 +143,25 @@ class ScheduleController extends Controller
 
     public function edit($id) {
         $data = Trc_trn_schedule_hdrs::select('*')->where("sched_id", $id)->get();
-        $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
-        $drivers = Trc_mst_drivers::select('drv_id', 'drv_name')->where('active','=','Y')->get();
-        $vehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get();
-        $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();
+        if(session('usercabang') != "01") {
+            $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->where('branch_id',session('usercabang'))->get();
+            
+            $drivers = DB::table('trc_mst_drivers as d')
+            ->join('apps_mst_empl_branchs as e','d.empl_id','=','e.empl_id')
+            ->select('d.*')->where('e.branch_id','=',session('usercabang'))->where('d.active','=','Y')->get();
+            
+            $vehicles = DB::table('trc_mst_vehicles as d')
+            ->join('trc_mst_vehicle_branchs as e','d.vhc_id','=','e.vhc_id')
+            ->select('d.*')->where('e.branch_id','=',session('usercabang'))->where('d.active','=','Y')->get();
+
+            $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();
+    
+        } else {
+            $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
+            $drivers = Trc_mst_drivers::select('drv_id', 'drv_name')->where('active','=','Y')->get();
+            $vehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get();
+            $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();    
+        } 
         return view('schedule.edit',compact('data','branchs','drivers','vehicles','containers'));
     }
 
@@ -331,6 +361,93 @@ class ScheduleController extends Controller
             
         } catch (Exception $e) {
             return "Err => ".$e.getMessage();
+        }
+    }
+
+    public function changedriver() {
+        if(session('usercabang') != "01") { 
+            $drivers = DB::table('trc_mst_drivers as d')
+            ->join('apps_mst_empl_branchs as e','d.empl_id','=','e.empl_id')
+            ->select('d.*')->where('e.branch_id','=',session('usercabang'))->where('d.active','=','Y')->get();   
+            $vehicles = DB::table('trc_mst_vehicles as d')
+            ->join('trc_mst_vehicle_branchs as e','d.vhc_id','=','e.vhc_id')
+            ->select('d.*')->where('e.branch_id','=',session('usercabang'))->where('d.active','=','Y')->get();
+        } else { 
+            $drivers = Trc_mst_drivers::select('drv_id', 'drv_name')->where('active','=','Y')->get();
+            $vehicles = Trc_mst_vehicles::select('vhc_id', 'vhc_plat_no')->where('active','=','Y')->get(); 
+        }
+
+        return view('assign.change_driver_list', compact('drivers','vehicles'));        
+    }
+
+    public function changedriveredit($id) {
+        $arr = explode("||", $id);
+
+        $data = DB::table('trc_trn_schedule_hdrs as h')
+        ->join('trc_trn_schedule_dtls as d','h.sched_id','=','d.sched_id')
+        ->select('h.sched_date','h.branch_id','d.*')
+        ->where('d.sched_id','=', $arr[0])
+        ->where('d.line','=', $arr[1])
+        ->get()->toArray();
+        return $data;
+    }
+
+    public function changedriverlist() {
+        if(session('usercabang')!="01") {
+            $data = DB::table('trc_trn_schedule_hdrs as h')
+            ->select('h.sched_id','h.sched_date','d.line','d.si_id','d.buss_unit','d.pickup_name','d.dest_name','s.drv_name','v.vhc_plat_no')
+            ->join('trc_trn_schedule_dtls as d','h.sched_id','=','d.sched_id')
+            ->leftjoin('trc_mst_drivers as s', 'd.drv_id','=','s.drv_id')
+            ->leftjoin('trc_mst_vehicles as v', 'd.vhc_id', '=','v.vhc_id')
+            ->where(DB::raw('IFNULL(d.assign_driver,\'N\')'), '=', 'N') 
+            ->where('status','=','OP')
+            //->where('d.drv_id','=','')
+            ->get()->toArray();
+        } else {
+            $data = DB::table('trc_trn_schedule_hdrs as h')
+            ->select('h.sched_id','h.sched_date','d.line','d.si_id','d.buss_unit','d.pickup_name','d.dest_name','s.drv_name','v.vhc_plat_no')
+            ->join('trc_trn_schedule_dtls as d','h.sched_id','=','d.sched_id')
+            ->leftjoin('trc_mst_drivers as s', 'd.drv_id','=','s.drv_id')
+            ->leftjoin('trc_mst_vehicles as v', 'd.vhc_id', '=','v.vhc_id')
+            ->where('h.branch_id','=',session('usercabang'))
+            ->where(DB::raw('IFNULL(d.assign_driver,\'N\')'), '=', 'N') 
+            ->where('status','=','OP')
+            //->where('d.drv_id','=','')
+            ->get()->toArray();
+        }
+
+        return  DataTables::of($data)
+        ->addColumn('action', function($data) {
+            return '<button value="'.$data->sched_id.'||'.$data->line.'" onclick="formchangedriver(this.value)"  class="btn btn-info btn-sm">
+            <i class="fa fa-edit"></i></button>';
+        })->make(true);
+    }
+
+    public function changedriversubmit(Request $request) {
+        $data = Trc_trn_schedule_dtls::where('sched_id',$request->sched_id)->where('line',$request->line)
+        ->update([
+            'drv_id' => $request->drv_id,
+            'vhc_id' => $request->vhc_id,
+            'assign_driver' => 'Y',
+            'status' => 'AS',
+            'amount' => $request->amount,
+            'update_by' => auth()->user()->username,
+        ]);
+
+        if($data) {
+            $stt = new Trc_trn_order_status;
+            $stt->sched_id = $request->sched_id;
+            $stt->line = $request->line;
+            $stt->si_id = $request->si_id;
+            $stt->is_public = 'N';
+            $stt->jobtime = Carbon::now();
+            $stt->description = "Job Order Sudah Diassign ke Sopir utk dijalankan";
+            $stt->create_by = auth()->user()->username;
+            $stt->save();
+
+            return "Save";
+        } else {
+            return "Failed Save";
         }
     }
 }
