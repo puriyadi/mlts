@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2020 at 06:06 AM
+-- Generation Time: Dec 22, 2020 at 01:35 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.3.16
 
@@ -540,7 +540,7 @@ CREATE TABLE `trc_trn_driver_hist_jobs` (
 --
 
 INSERT INTO `trc_trn_driver_hist_jobs` (`sched_id`, `line`, `seqno`, `empl_id`, `si_id`, `status`, `date_action`, `create_by`, `created_at`, `updated_at`) VALUES
-('10SCH01', 1, 1, 'K001', 'SI01A', 'Receive', '2020-12-12 14:15:44', 'K001', '2020-12-12 07:15:44', '2020-12-12 07:15:44');
+('10SCH01', 1, 1, 'K001', 'SI01A', 'Receive', '2020-12-22 19:28:49', 'K001', '2020-12-22 12:28:49', '2020-12-22 12:28:49');
 
 -- --------------------------------------------------------
 
@@ -566,9 +566,7 @@ CREATE TABLE `trc_trn_order_status` (
 --
 
 INSERT INTO `trc_trn_order_status` (`id`, `sched_id`, `line`, `si_id`, `is_public`, `jobtime`, `description`, `create_by`, `created_at`, `updated_at`) VALUES
-(3, '10SCH01', '1', 'SI01A', 'Y', '2020-12-11 23:02:28', 'Job Siap Dijalankan Sopir', 'K001', '2020-12-11 16:02:28', '2020-12-11 16:02:28'),
-(4, '10SCH01', '1', 'SI01A', 'N', '2020-12-12 12:12:30', 'Sopir K001 menolak Job yang telah di Assign', 'K001', '2020-12-12 05:12:30', '2020-12-12 05:12:30'),
-(16, '10SCH01', '1', 'SI01A', 'N', '2020-12-20 12:04:25', 'Job Order Sudah Diassign ke Sopir utk dijalankan', 'K001', '2020-12-20 05:04:25', '2020-12-20 05:04:25');
+(19, '10SCH01', '1', 'SI01A', 'Y', '2020-12-22 19:28:48', 'Job Siap Dijalankan Sopir', 'K001', '2020-12-22 12:28:48', '2020-12-22 12:28:48');
 
 -- --------------------------------------------------------
 
@@ -616,7 +614,7 @@ CREATE TABLE `trc_trn_schedule_dtls` (
 --
 
 INSERT INTO `trc_trn_schedule_dtls` (`sched_id`, `line`, `si_id`, `buss_unit`, `depo`, `cust_id`, `line_cust`, `cust_address`, `pickup_name`, `pickup_contact`, `pickup_address`, `dest_name`, `dest_contact`, `dest_address`, `latitude_pickup`, `longitude_pickup`, `latitude_dest`, `longitude_dest`, `cont_id`, `cont_no`, `padlock`, `seal_no`, `drv_id`, `vhc_id`, `amount`, `assign_driver`, `receive_assign`, `status`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES
-('10SCH01', 1, 'SI01A', 'IMPORT', 'STARPIAA', '10C0001', NULL, 'JL. MARUNDA CENTER NO.2A', 'Tanjung Priok', 'BUDIA', 'Tj. Priok, Jl. Raya Pelabuhan No.9, Tj. Priok, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14310, Indonesia', 'Marunda Center', 'AHMADAT', 'Pantai Makmur, Tarumajaya, Bekasi, West Java 17212, Indonesia', '-6.1076897', '106.883342', '-6.098889400000001', '106.9782064', '20F', '124323421', 'N', '13SFSD1231A', 'DRV001', 'V001', 150000, 'Y', NULL, 'AS', 'yalong', 'K001', '2020-11-17 11:00:09', '2020-12-20 05:04:25'),
+('10SCH01', 1, 'SI01A', 'IMPORT', 'STARPIAA', '10C0001', NULL, 'JL. MARUNDA CENTER NO.2A', 'Tanjung Priok', 'BUDIA', 'Tj. Priok, Jl. Raya Pelabuhan No.9, Tj. Priok, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14310, Indonesia', 'Marunda Center', 'AHMADAT', 'Pantai Makmur, Tarumajaya, Bekasi, West Java 17212, Indonesia', '-6.1076897', '106.883342', '-6.098889400000001', '106.9782064', '20F', '124323421', 'N', '13SFSD1231A', 'DRV001', 'V001', 150000, 'Y', 'Y', 'RJ', 'yalong', 'K001', '2020-11-17 11:00:09', '2020-12-22 12:28:48'),
 ('10SCH01', 2, 'SI01', 'IMPORT', 'STARPIA', '10C0001', NULL, 'JL. MARUNDA CENTER NO.2', 'Tanjung Priok', 'BUDI', 'Tj. Priok, Jl. Raya Pelabuhan No.9, Tj. Priok, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14310, Indonesia', 'PT. Lintas Lima Benua', 'WARNI', 'Jl. Bandengan Selatan 80/ B19, RT.1, Pejagalan, Kec. Penjaringan, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14450, Indonesia', '-6.1076897', '106.883342', '-6.1376132', '106.7949714', '20F', '12121', 'N', '534534', 'DRV002', 'V002', 1120000, 'Y', NULL, '', 'yalong', 'yalong', '2020-11-18 08:00:55', '2020-11-21 08:21:11'),
 ('10SCH02', 1, '10SI01A', 'EXPORT', 'STARPIAT', '10C0001', NULL, 'JL. MARUNDA CENTER NO.2', 'Tanjung Priok', 'AKIONG', 'Tanjung Priok, North Jakarta City, Jakarta, Indonesia', 'PT Chin Haur Indonesia', 'LEONI', 'Jl. Raya Curug Km.2 Kp. Cisereh, Kadu Jaya, Kec. Curug, Tangerang, Banten 15810, Indonesia', '-6.1320555', '106.8714848', '-6.2395521', '106.5619721', '20F', '12314', 'N', '43534', 'DRV001', 'V002', 1500000, 'Y', NULL, '', 'yalong', 'yalong', '2020-11-19 05:47:54', '2020-11-21 08:51:12');
 
@@ -643,7 +641,7 @@ CREATE TABLE `trc_trn_schedule_hdrs` (
 --
 
 INSERT INTO `trc_trn_schedule_hdrs` (`sched_id`, `sched_date`, `branch_id`, `grand_total`, `payment_id`, `create_by`, `update_by`, `created_at`, `updated_at`) VALUES
-('10SCH01', '2020-12-11', '10', NULL, NULL, 'yalong', 'yalong', '2020-11-17 11:00:09', '2020-11-18 08:01:19'),
+('10SCH01', '2020-12-23', '10', NULL, NULL, 'yalong', 'yalong', '2020-11-17 11:00:09', '2020-11-18 08:01:19'),
 ('10SCH02', '2020-11-02', '10', NULL, NULL, 'yalong', NULL, '2020-11-19 05:47:54', '2020-11-19 05:47:54');
 
 -- --------------------------------------------------------
@@ -692,6 +690,13 @@ CREATE TABLE `trc_trn_schedule_tracks` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `trc_trn_schedule_tracks`
+--
+
+INSERT INTO `trc_trn_schedule_tracks` (`sched_id`, `line`, `receivejob_time`, `receivejob_lat`, `receivejob_long`, `outgarasi_time`, `outgarasi_lat`, `outgarasi_long`, `arrivedepo_time`, `arrivedepo_lat`, `arrivedepo_long`, `outdepo_time`, `outdepo_lat`, `outdepo_long`, `arrivepickup_time`, `arrivepickup_lat`, `arrivepickup_long`, `loadpickup_time`, `loadpickup_lat`, `loadpickup_long`, `outpickup_time`, `outpickup_lat`, `outpickup_long`, `arriveunload_time`, `arriveunload_lat`, `arriveunload_long`, `unload_time`, `unload_lat`, `unload_long`, `outunload_time`, `outunload_lat`, `outunload_long`, `close_time`, `close_lat`, `close_long`, `created_at`, `updated_at`) VALUES
+('10SCH01', 1, '2020-12-22 19:28:49', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-12-22 12:28:49', '2020-12-22 12:28:49');
+
 -- --------------------------------------------------------
 
 --
@@ -717,7 +722,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `username`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`, `api_token`) VALUES
 (1, 'Hartono Yang', 'yalong', NULL, '$2y$10$ZiUA0BwlBv4nBHxACR8/I.b.gP65Xcf57Re86TApEANg3PGo06yT2', NULL, '2020-10-23 03:03:30', '2020-12-11 15:41:17', 'Karyawan', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4LjEwMC4xNzU6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYwNzcwMTI3NywiZXhwIjoxNjA3NzA0ODc3LCJuYmYiOjE2MDc3MDEyNzcsImp0aSI6IldPS2Mycm9QdkI5WGpJN0UiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.qQvas2Oy0Xp2WGbcnfDQm9yY51AagSVlbY2_quyRQ3c'),
-(2, 'HARTONO', 'K001', NULL, '$2y$10$VEpcpifHo4.iIRhGFFRl.u9BWn0JQqEjw4mKAxAn.RxNgZ6Kv29B6', NULL, '2020-12-02 11:05:18', '2020-12-13 16:45:44', 'Driver', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xOTIuMTY4LjEwMC4xNzU6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYwNzg3Nzk0NCwiZXhwIjoxNjA3ODgxNTQ0LCJuYmYiOjE2MDc4Nzc5NDQsImp0aSI6IkZQbEdqTkhOaEJiYjFYcHkiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.ZUop54kCHHGdZrhomfY8ru0Iiegu7CBEevb84r-3tew');
+(2, 'HARTONO', 'K001', NULL, '$2y$10$VEpcpifHo4.iIRhGFFRl.u9BWn0JQqEjw4mKAxAn.RxNgZ6Kv29B6', NULL, '2020-12-02 11:05:18', '2020-12-22 12:19:00', 'Driver', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTYwODYzOTU0MCwiZXhwIjoxNjA4NjQzMTQwLCJuYmYiOjE2MDg2Mzk1NDAsImp0aSI6IjlGVmE3c2JlcFlhazZ2Q0wiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Yg2S7vQOZ753CSmLIXtxMyEF0WzEhfBmZ9WQ32RKk1o');
 
 -- --------------------------------------------------------
 
@@ -906,7 +911,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `trc_trn_order_status`
 --
 ALTER TABLE `trc_trn_order_status`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`

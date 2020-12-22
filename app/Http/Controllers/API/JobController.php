@@ -89,7 +89,6 @@ class JobController extends Controller
             $job->status = 'Receive';
             $job->date_action = Carbon::now();
             $job->create_by = $request->username;
-            $job->create_date = Carbon::now();
             $job->save();
         }
         
