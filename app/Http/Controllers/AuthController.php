@@ -10,6 +10,7 @@ use Hash;
 use Session;
 use App\User;
 use App\Apps_mst_branchs;
+use App\Apps_mst_empl_branchs;
 
 class AuthController extends Controller
 {
@@ -124,6 +125,12 @@ class AuthController extends Controller
                 "branch_id" => $request->branch_id,
                 "update_by" => auth()->user()->username
             ]);
+
+            $empl = Apps_mst_empl_branchs::where("empl_id", $request->username)->update([
+                "branch_id" => $request->branch_id,
+                "update_by" => auth()->user()->username
+            ]);
+
             if($data) {
                 return "Save";
             } else {
@@ -135,6 +142,13 @@ class AuthController extends Controller
             $data->branch_id = $request->branch_id;
             $data->create_by = auth()->user()->username;
             $data->save();
+
+            $empl = new Apps_mst_empl_branchs;
+            $empl->empl_id = $request->username;
+            $empl->branch_id = $request->branch_id;
+            $empl->create_by = auth()->user()->username;
+            $empl->save();
+
             if($data) {
                 return "Save";
             } else {

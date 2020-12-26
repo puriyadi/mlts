@@ -12,9 +12,16 @@ use App\Apps_mst_branchs;
 use App\Trc_mst_drivers;
 use App\Trc_mst_driver_branchs;
 use App\User;
+use App\Http\Controllers\FunctionController;
 
 class DriverController extends Controller
 {
+    protected $FunctionController;
+    public function __construct(FunctionController $FunctionController)
+    {
+        $this->FunctionController = $FunctionController;
+    }
+
     public function index() {
         $employees = Apps_mst_employees::select('empl_id', 'empl_fullname')->where('active','=','Y')->get();
         $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
@@ -27,8 +34,11 @@ class DriverController extends Controller
             return "Data Sudah Ada";
         } else {
             try{
+                $id = $this->FunctionController->GetAutoNumberMaster("S", "01");
+
                 $data = new Trc_mst_drivers;
-                $data->drv_id = $request->drv_id;
+                //$data->drv_id = $request->drv_id;
+                $data->drv_id = $id;
                 $data->empl_id = $request->empl_id;
                 $data->drv_name = $request->drv_name;
                 $data->drv_handphone = $request->drv_handphone;
@@ -36,7 +46,8 @@ class DriverController extends Controller
                 $data->create_by = auth()->user()->username; 
                 
                 $branchs = new Trc_mst_driver_branchs;
-                $branchs->drv_id = $request->drv_id;
+                //$branchs->drv_id = $request->drv_id;
+                $branchs->drv_id = $id;
                 $branchs->branch_id = $request->branch_id;
                 $branchs->create_by = auth()->user()->username; 
                     

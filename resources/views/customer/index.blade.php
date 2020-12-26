@@ -248,8 +248,8 @@
 //---------------------------------------- dokumen ---------------------------------------------//
 
 function clearcustomer() {
-    $('#cust_id').val("");
-    $('#cust_id').attr('readonly',false);
+    $('#cust_id').val("000");
+    $('#cust_id').attr('readonly',true);
     $("#branch_id").val(null).trigger('change');
     $('#cust_name').val(""); 
     $('#cust_address').val("");

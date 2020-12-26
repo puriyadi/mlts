@@ -15,9 +15,16 @@ use App\Trc_trn_schedule_hdrs;
 use App\Trc_trn_schedule_dtls;
 use App\Trc_trn_order_status;
 use Carbon\Carbon;
+use App\Http\Controllers\FunctionController;
 
 class ScheduleController extends Controller
 {
+    protected $FunctionController;
+    public function __construct(FunctionController $FunctionController)
+    {
+        $this->FunctionController = $FunctionController;
+    }
+
     public function index() {
         return view('schedule.index');
     }
@@ -47,10 +54,16 @@ class ScheduleController extends Controller
     }
 
     public function store(Request $request) {
-        $check = Trc_trn_schedule_hdrs::where("sched_id",$request->sched_id)->first();
+        if($request->sched_id <> "000") {
+            $id = $request->sched_id;
+        } else {
+            $id = $this->FunctionController->GetAutoNumberTrans("SCH", $request->branch_id);
+        }
+
+        $check = Trc_trn_schedule_hdrs::where("sched_id",$id)->first();
         if($check) {
             try {
-                $hdr = Trc_trn_schedule_hdrs::where("sched_id", $request->sched_id)
+                $hdr = Trc_trn_schedule_hdrs::where("sched_id", $id)
                 ->update([
                     "sched_date" => $request->sched_date,
                     "branch_id" => $request->branch_id,
@@ -62,7 +75,7 @@ class ScheduleController extends Controller
         } else {
             try {
                 $hdr = new Trc_trn_schedule_hdrs;
-                $hdr->sched_id = $request->sched_id;
+                $hdr->sched_id = $id;
                 $hdr->sched_date = $request->sched_date;
                 $hdr->branch_id = $request->branch_id;
                 $hdr->create_by = auth()->user()->username;
@@ -75,14 +88,14 @@ class ScheduleController extends Controller
 
         if($hdr) {
             try {
-                $max = DB::table('trc_trn_schedule_dtls')->where("sched_id", $request->sched_id)->max("line");
+                $max = DB::table('trc_trn_schedule_dtls')->where("sched_id", $id)->max("line");
                 if($max == "" || $max == NULL) {
                     $max = 1;
                 } else {
                     $max = $max + 1;
                 }
                 $data = new Trc_trn_schedule_dtls;
-                $data->sched_id = $request->sched_id;
+                $data->sched_id = $id;
                 $data->line = $max;
                 $data->si_id = $request->si_id;
                 $data->buss_unit = $request->buss_unit;
@@ -111,7 +124,7 @@ class ScheduleController extends Controller
                 $data->save();
 
                 $stt = new Trc_trn_order_status;
-                $stt->sched_id = $request->sched_id;
+                $stt->sched_id = $id;
                 $stt->line = $max;
                 $stt->si_id = $request->si_id;
                 $stt->is_public = 'N';
@@ -121,7 +134,7 @@ class ScheduleController extends Controller
                 $stt->save();
 
                 if($data) {
-                    return "Save"; 
+                    return "Save"."||".$id; 
                 } else {
                     return "Failed Save";
                 }

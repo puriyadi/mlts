@@ -10,8 +10,16 @@ use Session;
 use App\Ord_mst_customers;
 use App\Apps_mst_branchs;
 use App\Trc_trn_schedule_dtls;
+use App\Http\Controllers\FunctionController;
+
 class CustomerController extends Controller
 {
+    protected $FunctionController;
+    public function __construct(FunctionController $FunctionController)
+    {
+        $this->FunctionController = $FunctionController;
+    }
+
     public function index(Request $request) {
         if(session('usercabang') != "01") {
             $branchs = Apps_mst_branchs::where("active","Y")->where("branch_id",session('usercabang'))->get();
@@ -41,8 +49,11 @@ class CustomerController extends Controller
             return "Data Sudah Ada";
         } else {
             try{
+                $id = $this->FunctionController->GetAutoNumberMaster("C", "01");
+
                 $data = new Ord_mst_customers;
-                $data->cust_id = $request->cust_id;
+                //$data->cust_id = $request->cust_id;
+                $data->cust_id = $id;
                 $data->cust_name = $request->cust_name;
                 $data->branch_id = $request->branch_id;
                 $data->cust_address = $request->cust_address;

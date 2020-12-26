@@ -71,7 +71,7 @@
                   <label for="">Kode Schedule</label>
                   <div class="form-group">
                     <input type="hidden" name="linkurl" id="linkurl" value="/schedule/tambah">
-                    <input type="text" class="form-control" id="sched_id" name="sched_id" placeholder="Kode Schedule"/>
+                    <input type="text" class="form-control" id="sched_id" name="sched_id" placeholder="Kode Schedule" value="000" readonly/>
                   </div>
                 </div>
                 <div class="col-md-3">

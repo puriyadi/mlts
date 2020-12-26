@@ -12,13 +12,21 @@ use App\Trc_mst_vehicle_branchs;
 use App\Trc_mst_vehicle_docs;
 use App\Ord_mst_documents;
 use App\Apps_mst_branchs;
+use App\Http\Controllers\FunctionController;
 
 class VehicleController extends Controller
 {
+    protected $FunctionController;
+    public function __construct(FunctionController $FunctionController)
+    {
+        $this->FunctionController = $FunctionController;
+    }
+
     public function index() {
+        $id = $this->FunctionController->GetAutoNumberMaster("V", "01");
         $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
         $docs = Ord_mst_documents::select('doc_id','doc_name')->where('active','=','Y')->where('doc_type','=','VC')->get();
-        return view('vehicle.index',compact('branchs','docs'));
+        return view('vehicle.index',compact('branchs','docs','id'));
     }
 
     public function store(Request $request) {

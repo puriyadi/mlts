@@ -16,7 +16,7 @@ class CreateTrcTrnScheduleDtlsTable extends Migration
         Schema::create('trc_trn_schedule_dtls', function (Blueprint $table) {
             $table->string('sched_id',20);
             $table->integer('line');
-            $table->string('si_id',10);
+            $table->string('si_id',20);
             $table->string('buss_unit',10);
             $table->string('depo')->nullable();
             $table->string('cust_id',10)->nullable();

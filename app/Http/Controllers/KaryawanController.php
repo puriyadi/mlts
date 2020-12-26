@@ -10,9 +10,16 @@ use Carbon\Carbon;
 use File;
 use App\User;
 use Hash;
+use App\Http\Controllers\FunctionController;
 
 class KaryawanController extends Controller
 {
+    protected $FunctionController;
+    public function __construct(FunctionController $FunctionController)
+    {
+        $this->FunctionController = $FunctionController;
+    }
+
     public function index() {
         return view('karyawan.index');
     }
@@ -22,9 +29,10 @@ class KaryawanController extends Controller
         if($check) {
             return "Data Sudah Ada";
         } else {
-            
             $data = new Apps_mst_employees;
-            $data->empl_id = $request->empl_id;
+            $id = $this->FunctionController->GetAutoNumberMaster("K", "01");
+            //$data->empl_id = $request->empl_id;
+            $data->empl_id = $id;
             $data->empl_fullname = trim($request->empl_fullname);
             $data->empl_shortname = trim($request->empl_shortname);
             $data->empl_birthday = $request->empl_birthday;
@@ -76,8 +84,9 @@ class KaryawanController extends Controller
             
             if($data) {
                 $user = new User;
-                $user->username = $request->empl_id;
-                $user->password = Hash::make($request->empl_id);
+                //$user->username = $request->empl_id;
+                $user->username = $id;
+                $user->password = Hash::make("1234");
                 $user->name = $request->empl_fullname;
                 $user->role = "Karyawan";
                 $user->save();

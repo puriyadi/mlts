@@ -198,8 +198,8 @@ function clearbranch() {
 //---------------------------------------- karyawan ---------------------------------------------//
 
 function clearkaryawan() {
-    $('#empl_id').attr('readonly',false);
-    $('#empl_id').val("");
+    $('#empl_id').attr('readonly',true);
+    $('#empl_id').val("000");
     $('#empl_fullname').val("");
     $('#empl_shortname').val("");
     $('#empl_birthday').val("");
@@ -509,8 +509,8 @@ function deleteemployee(id) {
 //---------------------------------------- driver ---------------------------------------------//
 
 function cleardriver() {
-    $('#drv_id').attr('readonly',false);
-    $('#drv_id').val("");
+    $('#drv_id').attr('readonly',true);
+    $('#drv_id').val("000");
     $("#empl_id").val(null).trigger('change');
     $("#branch_id").val(null).trigger('change');
     $('#drv_name').val("");
@@ -669,8 +669,8 @@ function deletedriver(id) {
 
 function clearvehicle() {
     //---------- TAB KENDARAAN ------------
-    $('#vhc_id').attr('readonly',false);
-    $('#vhc_id').val("");
+    $('#vhc_id').attr('readonly',true);
+    //$('#vhc_id').val("");
     $("#branch_id").val(null).trigger('change');
     $('#vhc_name').val("");
     $('#vhc_plat_no').val("");
@@ -1141,7 +1141,9 @@ $("#btnsaveschedule").click(function(e){
             },
             success:function(data) {
                 //alert("Data => "+data);
-                if(data=="Save") {
+                var arr = data.split("||");
+                if(arr[0] == "Save") {
+                    $('#sched_id').val(arr[1]);
                     toastr.success("Data Berhasil Disimpan"); 
                     loaderout();
                     return false;
@@ -1182,7 +1184,6 @@ $("#btnresetschedule").click(function(e){
     $('#vhc_id').val(null).trigger('change');
     $('#amount').val("");
     $('#btnsaveschedule').text('Save');
-     
 }); 
 
 function editschedulesi(str) {
