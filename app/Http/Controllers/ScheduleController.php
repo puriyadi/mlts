@@ -119,7 +119,7 @@ class ScheduleController extends Controller
                 $data->drv_id = $request->drv_id;
                 $data->vhc_id = $request->vhc_id;
                 $data->amount = $request->amount;
-                $data->status = "OP";
+                $data->status = "NW";
                 $data->create_by = auth()->user()->username;
                 $data->save();
 
@@ -267,7 +267,11 @@ class ScheduleController extends Controller
     }
 
     public function assign() {
-        $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
+        if(session('usercabang') != "01") {
+            $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->where('branch_id',session('usercabang'))->get();
+        } else {
+            $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
+        }
         return view('assign.index', compact('branchs'));
     }
 
@@ -413,7 +417,7 @@ class ScheduleController extends Controller
             ->leftjoin('trc_mst_drivers as s', 'd.drv_id','=','s.drv_id')
             ->leftjoin('trc_mst_vehicles as v', 'd.vhc_id', '=','v.vhc_id')
             ->where(DB::raw('IFNULL(d.assign_driver,\'N\')'), '=', 'N') 
-            ->where('status','=','OP')
+            ->where('status','=','NW')
             //->where('d.drv_id','=','')
             ->get()->toArray();
         } else {
@@ -424,7 +428,7 @@ class ScheduleController extends Controller
             ->leftjoin('trc_mst_vehicles as v', 'd.vhc_id', '=','v.vhc_id')
             ->where('h.branch_id','=',session('usercabang'))
             ->where(DB::raw('IFNULL(d.assign_driver,\'N\')'), '=', 'N') 
-            ->where('status','=','OP')
+            ->where('status','=','NW')
             //->where('d.drv_id','=','')
             ->get()->toArray();
         }

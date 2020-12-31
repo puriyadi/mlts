@@ -375,7 +375,8 @@
 
   if($('#branch_id').val() != "") {
     getCust($('#branch_id').val());
-  }
+  }<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy3i0kShooPcS-_H1pMML7Rvv21WP8xDU&libraries=places&callback=initMap" async defer></script>
+
   
   var baseurl="";
   

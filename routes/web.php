@@ -106,6 +106,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('changedriver/{id}/edit', 'ScheduleController@changedriveredit');
     Route::post('changedriver','ScheduleController@changedriversubmit');
 
+    //------------------------------- Report -------------------------------
+    Route::get('rpt_schedule', 'ReportController@index')->name('rpt_schedule');
+    Route::get('rpt_schedule/excel', 'ReportController@rptscheduleexcel');
+    Route::post('rpt_schedule/list','ReportController@rptschedulelist');
+    Route::get('rpt_ritase', 'ReportController@formritase')->name('rpt_ritase');
+    Route::post('rpt_ritase/list','ReportController@rptritaselist');
+
     //------------------------------- User -------------------------------
     Route::get('userbranch', 'AuthController@viewuserbranch')->name('userbranchs');
     Route::post('user/branchs', 'AuthController@saveuserbranch');

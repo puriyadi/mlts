@@ -102,7 +102,7 @@ class JobController extends Controller
             'receive_assign' => null,
             'drv_id' => '',
             'vhc_id' => '',
-            'status' => 'OP',
+            'status' => 'NW',
             'update_by' => $request->username
         ]);
 
