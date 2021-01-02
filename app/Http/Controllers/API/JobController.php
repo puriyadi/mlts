@@ -69,8 +69,8 @@ class JobController extends Controller
             $tracks->sched_id = $request->sched_id;
             $tracks->line = $request->line;
             $tracks->receivejob_time = Carbon::now();
-            //$tracks->receivejob_lat = "";
-            //$tracks->receivejob_long = "";
+            $tracks->receivejob_lat = $request->latitude;
+            $tracks->receivejob_long = $request->longitude;
             $tracks->save();
 
             $max = DB::table('trc_trn_driver_hist_jobs')->where("sched_id", $request->sched_id)->where("line", $request->line)->max("seqno");
