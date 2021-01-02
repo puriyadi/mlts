@@ -61,7 +61,7 @@
                     <div class="form-group">
                       <label for="">Kode Kendaraan</label>
                       <input type="text" class="form-control" id="vhc_id" name="vhc_id" placeholder="Kode Kendaraan" 
-                      onblur="refreshvehicledocs(this.value);" value="{{ $id }}"/>
+                      onblur="refreshvehicledocs(this.value);" value="{{ $id }}"/> 
                     </div>
                     <div class="form-group">
                       <label for="">Nama Kendaraan</label>
