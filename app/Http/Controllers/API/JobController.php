@@ -138,4 +138,70 @@ class JobController extends Controller
         return response()->json(['status' => 'OK']);
     }
     
+    public function btnupdatetrack(Request $request) {
+           
+        if($request->status == 'OG') {
+            $is_public = 'Y';
+            $desc = 'Sopir berangkat dari Garasi menjalankan Order';
+        } else if($request->status == 'AD') {
+            $is_public = 'N';
+            $desc = 'Sopir sampai pada tempat Depo';
+        } else if($request->status == 'OD') {
+            $is_public = 'N';
+            $desc = 'Sopir keluar dari tempat Depo';
+        } else if($request->status == 'AP') {
+            $is_public = 'Y';
+            $desc = 'Sopir Tiba pada Tempat Pickup';
+        } else if($request->status == 'LP') {
+            $is_public = 'Y';
+            $desc = 'Proses Muat Sedang Berlangsung';
+        } else if($request->status == 'OP') {
+            $is_public = 'Y';
+            $desc = 'Sopir bersiap keluar dari tempat Muat';
+        } else if($request->status == 'AU') {
+            $is_public = 'Y';
+            $desc = 'Sopir Tiba pada Tempat Bongkar';
+        } else if($request->status == 'UL') {
+            $is_public = 'Y';
+            $desc = 'Proses Bongkar Sedang Berlangsung';
+        } else if($request->status == 'OU') {
+            $is_public = 'Y';
+            $desc = 'Sopir bersiap keluar dari tempat Bongkar';
+        } else if($request->status == 'CL') {
+            $is_public = 'Y';
+            $desc = 'Sopir telah kembali ke Garansi dan menyelesaikan Order';
+        } else {
+            return response()->json(['status' => 'Failed', 'data' => 'Error status']);
+        }
+
+        $data = Trc_trn_schedule_tracks::where('sched_id', $request->sched_id)->where('line',$request->line)
+        ->update([
+            $request->fieldtable.'_time' => Carbon::now(),
+            $request->fieldtable.'_lat' => $request->latitude,
+            $request->fieldtable.'_long' => $request->longitude,
+        ]);
+
+        if($data) {
+            $dtls = Trc_trn_schedule_dtls::where('sched_id', $request->sched_id)->where('line',$request->line)
+            ->update([
+                'status' => $request->status,
+                'update_by' => $request->username
+            ]);
+            
+
+            $stt = new Trc_trn_order_status;
+            $stt->sched_id = $request->sched_id;
+            $stt->line = $request->line;
+            $stt->si_id = $request->si_id;
+            $stt->is_public = $is_public;
+            $stt->jobtime = Carbon::now();
+            $stt->description = $desc;
+            $stt->create_by = $request->username;
+            $stt->save();
+
+            return response()->json(['status' => 'OK']);
+        } else {
+            return response()->json(['status' => 'Failed']);
+        }
+    }
 }
