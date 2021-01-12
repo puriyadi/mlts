@@ -29,6 +29,7 @@ Route::group([
 
     //--------------------------- JOB --------------------------------
     Route::get('receivejob','API\JobController@receivejob');
+    Route::get('jobprogress','API\JobController@progress');
     Route::get('listorder','API\JobController@listorder');
     Route::post('btnreceivejob','API\JobController@btnreceivejob');
     Route::post('btnrefusejob','API\JobController@btnrefusejob');

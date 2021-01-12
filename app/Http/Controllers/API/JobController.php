@@ -41,11 +41,22 @@ class JobController extends Controller
 
     public function listorder(Request $request)
     {
-        $data=Trc_trn_schedule_dtls::select('*')->where('drv_id',$request->drv_id)->offset($request->index)
+        $data=Trc_trn_schedule_dtls::select('*')->where('drv_id',$request->drv_id)
+        ->where('status','CL')
+        ->offset($request->index)
         ->limit('10')->get();
         return response()->json($data);
     }
-
+    public function progress(Request $request)
+    {
+        $data=Trc_trn_schedule_dtls::select('*')->where('drv_id',$request->drv_id)
+        ->where('status','!=','NW')
+        ->where('status','!=','AS')
+        ->where('status','!=','CL')
+        ->where('status','!=','')
+        ->limit('1')->get();
+        return response()->json($data);
+    }
     public function btnreceivejob(Request $request) {
         $data = Trc_trn_schedule_dtls::where('sched_id',$request->sched_id)->where('line', $request->line)
         ->update([
