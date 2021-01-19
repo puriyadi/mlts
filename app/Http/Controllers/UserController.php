@@ -31,7 +31,7 @@ class UserController extends Controller
 
         return response()->json(['status' => 'OK', 'data' => compact('token'), 'user' => $id]);
     }
-     
+    
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [

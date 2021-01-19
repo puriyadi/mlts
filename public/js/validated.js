@@ -1170,11 +1170,13 @@ $("#btnresetschedule").click(function(e){
     $('#latitude_muat').val("");
     $('#longitude_muat').val("");
     $('#pickup_contact').val("");
+    $('#pickup_contact_telp').val("");
     $('#pickup_address').val("");
     $('#dest_name').val("");
     $('#latitude_bongkar').val("");
     $('#longitude_bongkar').val("");
     $('#dest_contact').val("");
+    $('#dest_contact_telp').val("");
     $('#dest_address').val("");
     $('#cont_id').val(null).trigger('change');
     $('#cont_no').val("");
@@ -1200,11 +1202,13 @@ function editschedulesi(str) {
             $('#latitude_muat').val(data[0].latitude_pickup);
             $('#longitude_muat').val(data[0].longitude_pickup);
             $('#pickup_contact').val(data[0].pickup_contact);
+            $('#pickup_contact_telp').val(data[0].pickup_contact_telp);
             $('#pickup_address').val(data[0].pickup_address);
             $('#dest_name').val(data[0].dest_name);
             $('#latitude_bongkar').val(data[0].latitude_dest);
             $('#longitude_bongkar').val(data[0].longitude_dest);
             $('#dest_contact').val(data[0].dest_contact);
+            $('#dest_contact_telp').val(data[0].dest_contact_telp);
             $('#dest_address').val(data[0].dest_address);
             $('#cust_id').val(data[0].cust_id).trigger('change');
             $('#cust_address').val(data[0].cust_address);

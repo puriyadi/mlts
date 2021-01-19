@@ -12,6 +12,8 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Counters' => $baseDir . '/app/Counters.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Exports\\RptScheduleExport' => $baseDir . '/app/Exports/RptScheduleExport.php',
+    'App\\Exports\\RptScheduleExport1' => $baseDir . '/app/Exports/RptScheduleExport1.php',
     'App\\Http\\Controllers\\API\\EmployeeController' => $baseDir . '/app/Http/Controllers/API/EmployeeController.php',
     'App\\Http\\Controllers\\API\\JobController' => $baseDir . '/app/Http/Controllers/API/JobController.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',

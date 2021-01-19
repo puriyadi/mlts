@@ -35,13 +35,14 @@ class AuthController extends Controller
         if (Auth::check()) { // true sekalian session field di users nanti bisa dipanggil via Auth
             
             $userbranch = User_branchs::where('username',$request->input('username'))->first();
+            $users = User::where('username', $request->input('username'))->first();
              
             if($userbranch) {
                 $branch_id =  $userbranch->branch_id;
-                session(['usercabang' => $branch_id]);
+                session(['usercabang' => $branch_id, 'role' => $users->role]);
             } else {
                 $branch_id = "01";
-                session(['usercabang' => $branch_id]);
+                session(['usercabang' => $branch_id, 'role' => $users->role]);
             }
             
             //Login Success

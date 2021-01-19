@@ -41,7 +41,7 @@ class ScheduleController extends Controller
             ->join('trc_mst_vehicle_branchs as e','d.vhc_id','=','e.vhc_id')
             ->select('d.*')->where('e.branch_id','=',session('usercabang'))->where('d.active','=','Y')->get();
 
-            $containers = Ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();
+            $containers = ord_mst_containers::select('cont_id', 'cont_name')->where('active','=','Y')->get();
     
         } else {
             $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
@@ -104,9 +104,11 @@ class ScheduleController extends Controller
                 $data->latitude_pickup = $request->latitude_muat;
                 $data->longitude_pickup = $request->longitude_muat;
                 $data->pickup_contact = $request->pickup_contact;
+                $data->pickup_contact_telp = $request->pickup_contact_telp;
                 $data->pickup_address = $request->pickup_address;
                 $data->dest_name = $request->dest_name;
                 $data->dest_contact = $request->dest_contact;
+                $data->dest_contact_telp = $request->dest_contact_telp;
                 $data->dest_address = $request->dest_address;
                 $data->latitude_dest = $request->latitude_bongkar;
                 $data->longitude_dest = $request->longitude_bongkar;
@@ -216,11 +218,13 @@ class ScheduleController extends Controller
                 "depo" => $request->depo,
                 "pickup_name" => $request->pickup_name,
                 "pickup_contact" => $request->pickup_contact,
+                "pickup_contact_telp" => $request->pickup_contact_telp,
                 "latitude_pickup" => $request->latitude_muat,
                 "longitude_pickup" => $request->longitude_muat,
                 "pickup_address" => $request->pickup_address,
                 "dest_name" => $request->dest_name,
                 "dest_contact" => $request->dest_contact,
+                "dest_contact_telp" => $request->dest_contact_telp,
                 "latitude_dest" => $request->latitude_bongkar,
                 "longitude_dest" => $request->longitude_bongkar,
                 "dest_address" => $request->dest_address,
@@ -352,8 +356,8 @@ class ScheduleController extends Controller
                 ]);
 
                 $stt = new Trc_trn_order_status;
-                $stt->sched_id = $request->sched_id;
-                $stt->line = $max;
+                $stt->sched_id = $val[0];
+                $stt->line = $val[1];
                 $stt->si_id = $val[2];
                 $stt->is_public = 'N';
                 $stt->jobtime = Carbon::now();
@@ -417,8 +421,7 @@ class ScheduleController extends Controller
             ->leftjoin('trc_mst_drivers as s', 'd.drv_id','=','s.drv_id')
             ->leftjoin('trc_mst_vehicles as v', 'd.vhc_id', '=','v.vhc_id')
             ->where(DB::raw('IFNULL(d.assign_driver,\'N\')'), '=', 'N') 
-            ->where('status','=','NW')
-            //->where('d.drv_id','=','')
+            ->where('status','=','NW') 
             ->get()->toArray();
         } else {
             $data = DB::table('trc_trn_schedule_hdrs as h')

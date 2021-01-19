@@ -212,16 +212,35 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-md-6">
-                  <label for="">Kontak Tempat Muat</label>
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="pickup_contact" name="pickup_contact" placeholder="Kontak Tempat Muat"/>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="">Kontak Tempat Muat</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="pickup_contact" name="pickup_contact" placeholder="Kontak Tempat Muat"/>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="">Kontak Telepon</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="pickup_contact_telp" name="pickup_contact_telp" placeholder="Kontak Telp"/>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                    
                 <div class="col-md-6">
-                  <label for="">Kontak Tempat Bongkar</label>
-                  <div class="form-group">
-                    <input type="text" class="form-control" id="dest_contact" name="dest_contact" placeholder="Kontak Tempat Bongkar"/>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="">Kontak Tempat Bongkar</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="dest_contact" name="dest_contact" placeholder="Kontak Tempat Bongkar"/>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="">Kontak Telepon</label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="dest_contact_telp" name="dest_contact_telp" placeholder="Kontak Telepon"/>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

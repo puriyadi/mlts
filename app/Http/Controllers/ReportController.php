@@ -12,12 +12,16 @@ use App\Exports\RptScheduleExport;
 class ReportController extends Controller
 {
     public function index() {
+      
+      return session('role');
+      /*
         if(session('usercabang') != "01") {
             $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->where('branch_id',session('usercabang'))->get();
         } else {
             $branchs = Apps_mst_branchs::select('branch_id', 'branch_name')->where('active','=','Y')->get();
         }
         return view('report.rpt_schedule',compact('branchs'));
+        */
     }
 
     public function rptschedulelist(Request $request) {
@@ -36,7 +40,6 @@ class ReportController extends Controller
         ->where('h.sched_date','<=',$request->to)
         ->where('h.branch_id','=',$request->branch_id)
         ->where(DB::raw('IFNULL(d.assign_driver,\'N\')'), '=', 'Y')
-        ->where('d.status','CL') 
         ->get()->toArray();
 
         $html = '<div class="row">
@@ -141,6 +144,7 @@ class ReportController extends Controller
     ->where('h.sched_date','<=',$request->to)
     ->where('h.branch_id',$request->branch_id)
     ->where('d.drv_id',$request->drv_id)
+    ->where('d.status','CL')
     ->get();
 
     $html = '<div class="row">
