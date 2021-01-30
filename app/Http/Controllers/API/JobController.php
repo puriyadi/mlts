@@ -49,11 +49,24 @@ class JobController extends Controller
     }
     public function progress(Request $request)
     {
-        $data=Trc_trn_schedule_dtls::select('*')->where('drv_id',$request->drv_id)
-        ->where('status','!=','NW')
-        ->where('status','!=','AS')
-        ->where('status','!=','CL')
-        ->where('status','!=','')
+        // $data=Trc_trn_schedule_dtls::select('*')->where('drv_id',$request->drv_id)
+        // ->where('status','!=','NW')
+        // ->where('status','!=','AS')
+        // ->where('status','!=','CL')
+        // ->where('status','!=','')
+        // ->where('')
+        // ->limit('1')->get();
+        // return response()->json($data);
+        $tgl=date('Y-m-d');
+        $data=DB::table('trc_trn_schedule_dtls')
+        ->join('trc_trn_schedule_hdrs','trc_trn_schedule_hdrs.sched_id','=','trc_trn_schedule_dtls.sched_id')
+        ->where('trc_trn_schedule_dtls.drv_id',$request->drv_id)
+        ->where('trc_trn_schedule_dtls.status','!=','NW')
+        ->where('trc_trn_schedule_dtls.status','!=','AS')
+        ->where('trc_trn_schedule_dtls.status','!=','CL')
+        ->where('trc_trn_schedule_dtls.status','!=','')
+        ->where('trc_trn_schedule_hdrs.sched_date',$tgl)
+        ->select('trc_trn_schedule_dtls.*')
         ->limit('1')->get();
         return response()->json($data);
     }
