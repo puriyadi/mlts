@@ -36,7 +36,13 @@ class AuthController extends Controller
             
             $userbranch = User_branchs::where('username',$request->input('username'))->first();
             $users = User::where('username', $request->input('username'))->first();
-             
+            if($users->role=='Driver')
+            {
+                $msg = "Login Failed";
+            return $msg;
+            }
+            else
+            {
             if($userbranch) {
                 $branch_id =  $userbranch->branch_id;
                 session(['usercabang' => $branch_id, 'role' => $users->role]);
@@ -44,10 +50,12 @@ class AuthController extends Controller
                 $branch_id = "01";
                 session(['usercabang' => $branch_id, 'role' => $users->role]);
             }
-            
-            //Login Success
             $msg = "Login Success";
             return $msg;
+         }
+            
+            //Login Success
+            
             //return $branch_id;
             //return redirect()->route('home'); 
         } else { // false

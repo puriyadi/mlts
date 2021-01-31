@@ -28,8 +28,8 @@ class UserController extends Controller
 
         $user = User::where("username",$request->username)->update(['api_token' => $token]);
         $id = DB::table('trc_mst_drivers')->select('*')->where('empl_id', $request->username)->get();
-
-        return response()->json(['status' => 'OK', 'data' => compact('token'), 'user' => $id]);
+        $role= DB::table('users')->select('*')->where('username',$request->username)->get();
+        return response()->json(['status' => 'OK', 'data' => compact('token'), 'user' => $id,'role'=>$role]);
     }
     
     public function register(Request $request)
